@@ -1,0 +1,15 @@
+from flask import Flask, request
+import subprocess
+
+app = Flask(__name__)
+
+@app.route("/dns")
+def dns_lookup():
+    hostname = request.values.get('hostname')
+    # Валидация hostname
+    cmd = ['nslookup', hostname]
+    output = subprocess.check_output(cmd, text=True)
+    return output
+
+if __name__ == "__main__":
+    app.run(debug=True)

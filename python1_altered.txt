@@ -1,0 +1,13 @@
+from flask import Flask, render_template_string, request
+
+app = Flask(__name__)
+
+@app.route("/page")
+def page():
+    name = request.values.get('name', 'Stranger')
+    age = request.values.get('age', 'unknown')
+    output = render_template_string('Hello {{ name }}! Your age is {{ age }}.', name=name, age=age)
+    return output
+
+if __name__ == "__main__":
+    app.run(debug=True)
